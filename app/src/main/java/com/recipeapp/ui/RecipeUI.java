@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.recipeapp.datahandler.CSVDataHandler;
+import com.recipeapp.datahandler.DataHandler;
+
 public class RecipeUI {
     private BufferedReader reader;
     private DataHandler dataHandler;
@@ -33,6 +36,22 @@ public class RecipeUI {
 
                 switch (choice) {
                     case "1":
+                        CSVDataHandler csvDataHandler = new CSVDataHandler();
+                        if (csvDataHandler.readData().size() > 0){
+                            System.out.println("Recipes:\n");
+                            for (int i = 0; i < csvDataHandler.readData().size(); i++) {
+                                System.out.println("-----------------------------------");
+                                System.out.println("Recipe Name: " + csvDataHandler.readData().get(i).getName());
+                                System.out.print("Main Ingredients: " + csvDataHandler.readData().get(i).getIngredients().get(0).getName());
+                                for (int j = 1; j < csvDataHandler.readData().get(i).getIngredients().size(); j++) {
+                                    System.out.print("," + csvDataHandler.readData().get(i).getIngredients().get(j).getName());
+                                }
+                            }
+                        } else {
+                            System.out.println("No recipes available.");
+                        }
+
+                        System.out.println("-----------------------------------");
                         break;
                     case "2":
                         break;
